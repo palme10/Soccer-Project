@@ -62,18 +62,6 @@ def choose_team(teams_list, excluded_team=None):
         except ValueError:
             print("Please enter a valid number.")
 
-
-all_teams = ["Lions", "Tigers", "Bears", "Wolves", "Eagles"]
-
-# 1. Select the Home Team (no excluded team passed)
-home_team = choose_team(all_teams)
-
-# 2. Select the Opponent (pass home_team as the excluded parameter)
-opponent_team = choose_team(all_teams, home_team)
-
-print(f"\nMatchup Confirmed: {home_team} vs {opponent_team}!")
-   
-
 def play_game(home,opponent):
    
     """4. Generate random scores (no ties) and return W or L for the home team."""
@@ -94,6 +82,58 @@ def play_game(home,opponent):
         print(f"{home} Loses.")
         return "L"
 
-def display_record():
+def display_record(sTeamName, iWins, iLosses):
+    """
+    Receives the team name and its record, then displays it.
+    """
+    print()
+    print(f"Team Record for {sTeamName}")
+    print(f"Wins: {iWins}")
+    print(f"Losses: {iLosses}")
+    print()
+
     
 def main():
+    """
+    Main function that controls the game.
+    """
+    lstTeams = ["BYU","Utah","UVU","Weber State","Utah State","SUU"]
+    sPlayerName = display_intro()
+    sLastHomeTeam = ""
+    iWins = 0
+    iLosses = 0
+
+    sChoice = ""
+
+    while sChoice != "3":
+        sChoice = display_menu()
+
+        if sChoice == "1":
+            print(f"\n{sPlayerName}, let's play a game.")
+
+            sHomeTeam = choose_team(lstTeams)
+            sOpponentTeam = choose_team(lstTeams, sHomeTeam)
+
+            sResult = play_game(sHomeTeam, sOpponentTeam)
+
+            sLastHomeTeam = sHomeTeam
+
+            if sResult == "W":
+                iWins += 1
+            else:
+                iLosses += 1
+
+        elif sChoice == "2":
+            if sLastHomeTeam == "":
+                print("\nNo game has been played yet.\n")
+            else:
+                display_record(sLastHomeTeam, iWins, iLosses)
+
+        elif sChoice == "3":
+            print("\nThanks for playing!")
+
+        else:
+            print("\nInvalid choice. Try again.\n")
+
+
+main()
