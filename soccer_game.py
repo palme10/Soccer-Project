@@ -2,7 +2,7 @@
 # Team Members:
 # Elijah Palmer
 # Adam Cammack
-# Name 3
+# Zachary Worthington
 
 import random
 
